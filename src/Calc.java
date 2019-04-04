@@ -1,86 +1,116 @@
+import java.io.PrintStream;
 import java.util.Scanner;
 
-public class Calc {
-	
-	static int [] sum(int [] pack){
-
-		int a = pack [0];
-		int b = pack [1];
-
-		int [] sum = new int [2];
-		
-
-		if(a == 1 && b == 1 ) {
-			sum[0] = 0;
-			sum[1] = 1;// Carry Out
-		}
-		else if( a == 1 && b == 0) {
-			sum[0]=  1;
-			sum[0]=  0; // Carry Out
-		}	
-		else if( a == 0  && b == 1) {
-			sum[0] = 1;
-			sum[1] = 0;// Carry Out
-		}
-		else if( a == 0 && b == 0 ) {
-			sum[0] = 0;
-			sum[1] = 0;// Carry Out
-		}
-
-		return sum;
-	}
-	public static void main(String[]args){
-		Scanner sc1 = new Scanner(System.in); 
-    	
-		//System.out.println("Digite o sinal do numero A");
-		//String signalA = sc1.next()
-    	System.out.println("Digite um valor");
-    	String valueA = sc1.next();
-    	
-    	//System.out.println("Digite oo sinal do numero B");
-    	//String signalB = sc1.next();
-    	System.out.println("Digite um valor");
-    	String valueB = sc1.next();
-    	
-    	int bigest = Math.max(valueA.length(),valueB.length());
-    	
-    	int [] packA = new int[bigest];
-    	int [] packB = new int[bigest];
-    	
+public class Calc
+{
+  public Calc() {}
+  
+  static int[] sum(int[] paramArrayOfInt) {
+    int i = paramArrayOfInt[0];
+    int j = paramArrayOfInt[1];
     
-    	
-    	//System.out.println(bigest);
-    	
-    	//for(int i = 0 ;i < bigest;i++) {
-    	//	System.out.print(packB[i]+"  ");
-    		
-    	//}
-    	   	
-    	for(int i = valueA.length() ;i >0 ;i--) {
-    		packA[i] = Character.getNumericValue(valueA.charAt(i));
-    		System.out.print(packA[i]+"  ");
-    	}
-    	System.out.println();
-    	/*for(int i = valueA.length()-valueB.length() ;i >0 ;i--) {	
-    		packB[i] = Character.getNumericValue(valueB.charAt(i));
-    		System.out.print(packB[i]+"  ");
-    	}
-    	System.out.println();*/
-    	
-    	
+    int[] arrayOfInt = new int[2];
+    
 
-    	//pack [0] = Integer.parseInt(valueA) ;
-    	//pack [1] = Integer.parseInt(valueB) ;
-    	//pack [2] = Integer.parseInt(signalA);
-    	//pack [3] = Integer.parseInt(signalB);
-
-
-		//int [] result = sum(pack);
+    if ((i == 1) && (j == 1)) {
+      arrayOfInt[0] = 0;
+      arrayOfInt[1] = 1;
+    }
+    else if ((i == 1) && (j == 0)) {
+      arrayOfInt[0] = 1;
+      arrayOfInt[0] = 0;
+    }
+    else if ((i == 0) && (j == 1)) {
+      arrayOfInt[0] = 1;
+      arrayOfInt[1] = 0;
+    }
+    else if ((i == 0) && (j == 0)) {
+      arrayOfInt[0] = 0;
+      arrayOfInt[1] = 0;
+    }
+    
+    return arrayOfInt;
+  }
+  
+  public static void main(String[] paramArrayOfString) { java.util.Scanner localScanner = new java.util.Scanner(System.in);
+    
 
 
-		//System.out.println(valueA+" + "+valueB+" = "+result[0]+" | Carry out  = "+result[1]);
+    System.out.println("Digite um valor");
+    String str1 = localScanner.next();
+    
 
-	}
-	
 
+    System.out.println("Digite um valor");
+    String str2 = localScanner.next();
+    
+    int i = Math.max(str1.length(), str2.length());
+    
+    int[] arrayOfInt1 = new int[i];
+    int[] arrayOfInt2 = new int[i];
+    
+
+
+
+
+
+
+
+
+
+
+    System.out.println();
+    int j = 0;
+    if (str1.length() > str2.length()) {
+      for (k = 0; k < i; k++) {
+        try {
+          arrayOfInt1[k] = Character.getNumericValue(str1.charAt(k));
+        }
+        catch (Exception localException1) {}
+      }
+      
+
+      for (k = str1.length() - str2.length(); k < i; k++)
+      {
+        try {
+          arrayOfInt2[k] = Character.getNumericValue(str2.charAt(j));
+          j++;
+        }
+        catch (Exception localException2) {}
+        System.out.print(k);
+      }
+    } else {
+      for (k = str2.length() - str1.length(); k < i; k++) {
+        try {
+          arrayOfInt1[k] = Character.getNumericValue(str1.charAt(j));
+          j++;
+        }
+        catch (Exception localException3) {}
+      }
+      
+
+      for (k = 0; k < i; k++)
+      {
+        try {
+          arrayOfInt2[k] = Character.getNumericValue(str2.charAt(j));
+          j++;
+        }
+        catch (Exception localException4) {}
+        System.out.print(k);
+      }
+    }
+    
+
+    System.out.println();
+    for (int k = 0; k < i; k++) {
+      System.out.print(arrayOfInt1[k] + "  ");
+    }
+    System.out.println();
+    for (k = 0; k < i; k++) {
+      System.out.print(arrayOfInt2[k] + "  ");
+    }
+    
+    System.out.println();
+    System.out.println("----------------------------------------");
+  }
 }
