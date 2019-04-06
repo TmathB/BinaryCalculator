@@ -2,78 +2,10 @@ import java.util.Scanner;
 import java.util.Arrays; 
 
 public class Calc {
-	
-	 static int [] sum(int [] packA,int [] packB ){
-		
-		///*
-
-		int [] computed = new int [packA.length+1];
-		int [] carryOut = new int [packA.length+1];
-		int a ;
-		int b ; 
-		
-		//*/
-		/*
-
-		int [] computed = new int [packA.length+1];
-		int [] carryOut = new int [packA.length+1];
-		int a ;
-		int b ; 
-		*/
-		
-		for(int i = packA.length-1 ;i>=0;i--) {
-			
-			
-			a = packA[i];
-			b = packB[i];
-
-	
-			if(carryOut[i+1] == 0 && a == 0 && b ==0 ) {
-				computed[i+1] = 0;
-				carryOut[i] = 0;// Carry Out
-			}
-			else if(carryOut[i+1] == 0 && a == 0 && b ==1 ) {
-				computed[i+1] = 1;
-				carryOut[i] = 0;// Carry Out
-			}
-			else if(carryOut[i+1] == 0 && a == 1 && b ==0 ) {
-				computed[i+1] = 1;
-				carryOut[i] = 0;// Carry Out
-			}
-			else if(carryOut[i+1] == 0 && a ==1 && b ==1 ) {
-				computed[i+1] = 0;
-				carryOut[i] = 1;// Carry Out
-			}
-			else if(carryOut[i+1] == 1 && a == 0 && b ==0 ) {
-				computed[i+1] = 1;
-				carryOut[i] = 0;// Carry Out
-			}
-			else if(carryOut[i+1] == 1 && a == 0 && b ==1 ) {
-				computed[i+1] = 0;
-				carryOut[i] = 1;// Carry Out
-			}
-			else if(carryOut[i+1] == 1 && a == 1 && b ==0 ) {
-				computed[i+1] = 0;
-				carryOut[i] = 1;// Carry Out
-			}
-			else if(carryOut[i+1] == 1 && a == 1 && b ==1 ) {
-				computed[i+1] = 1;
-				carryOut[i] = 1;// Carry Out
-			}
-		}
-		if(carryOut[0]==1)
-			computed[0] = 1;
-		
-		System.out.println();
-		for (int i = 0 ; i < carryOut.length ; i++)
-			System.out.print("   "+carryOut[i]);/**/
-		System.out.println();
-		for (int i = 0 ; i < computed.length ; i++)
-			System.out.print("   "+computed[i]);/**/
-
-		return computed;
-	}
 	public static void main(String[]args){
+		
+		
+		
 		
 		//Entrada do usuario
 		Scanner sc1 = new Scanner(System.in); 
@@ -130,7 +62,8 @@ public class Calc {
 	    		//System.out.print(i);
 	    	}
     	}else {
-    		for(int i = valueB.length()-valueA.length() ;i<bigest;i++) {
+    		for(int
+    				i = valueB.length()-valueA.length() ;i<bigest;i++) {
         		try {
         			packA[i] = Character.getNumericValue(valueA.charAt(j));
         			j++;
@@ -168,25 +101,11 @@ public class Calc {
     	System.out.println();
     	System.out.println ("....................................");
     	
-    	int[] result = sum(packA,packB);
-    	
-    	
+    	Sum soma = new Sum();
+    	Sum.doSum(packA,packB);
 
     	System.out.println();
-		/*
-    	for (int i = 0 ; i < result.length ; i++)
-			System.out.print("   "+result[i]);
-			
-		*/
-    	
-    	
-		//System.out.println(valueA+" + "+valueB+" = "+result[0]+" | Carry out  = "+result[1]);
-    	
-    	
-    	
-    	
-
-    	
+		
  
 	}
 	
