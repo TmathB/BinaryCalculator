@@ -8,10 +8,10 @@ public class Sub{
 		Sum soma = new Sum();
 		Complement comp = new Complement();
 	
-		if(packA < 0){
+		if(packA[0] == 1 ){
 			comp.doComplement(packA);
 		}
-		else if(packB < 0){
+		else if(packB[0] == 1){
 			comp.doComplement(packB);	
 		}
 	
