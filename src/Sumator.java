@@ -1,7 +1,10 @@
-public class Sum {
-	
-	
-	public Sum(){
+/*This class is used to do the 
+* sum of to strings
+*/
+
+public class Sumator {
+
+	public Sumator(){
 	}
 	public static int[] doSum(int [] packA,int [] packB ) {
 		
@@ -56,15 +59,19 @@ public class Sum {
 		}
 		if(carryOut[0]==1)
 			computed[0] = 1;
-		
+		/*
 		System.out.println();
 		for (int i = 0 ; i < carryOut.length ; i++)
-			System.out.print("   "+carryOut[i]);/**/
+			System.out.print("   "+carryOut[i]);
+		*/
+	    /*
+		
+	
 		System.out.println();
 		for (int i = 0 ; i < computed.length ; i++)
-			System.out.print("   "+computed[i]);/**/
+			System.out.print(computed[i]);
+		*/
 
 		return computed;
 	}
 }
-

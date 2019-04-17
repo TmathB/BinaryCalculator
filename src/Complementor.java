@@ -1,6 +1,6 @@
-public class Complement {
+public class Complementor {
 
- public Complement() {}
+ public Complementor() {}
  
  
  public static int [] doComplement(int[] packA) {
@@ -10,7 +10,7 @@ public class Complement {
 	Um [packA.length-1] = 1;
    
    
-	Sum soma = new Sum();
+	Sender soma = new Sender();
 	
 	for(int i = 0 ; i < packA.length ; i++){
 		 
@@ -21,10 +21,14 @@ public class Complement {
 			packA[i] = 0;
 		 }
 	}
-	 
-	soma.doSum(packA,Um);
-				 
-	return packA;
+	
+	int complemented []  =(Sender(packA,Um,'+')).clone();
+	///*
+	for(int i = 0 ; i<packA.length-1;i++) {
+			System.out.print(packA[i]);
+	}
+	//*/ 			 
+	return complemented;
 	 
  }
  
