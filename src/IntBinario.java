@@ -98,7 +98,9 @@ public class IntBinario {
         return result;
 
     }
-    public static int[] subtracao(int [] a,int [] b){
+	
+	
+    public static int[] subtracao(int [] a, int [] b){
 
         int [] complement = (complemento(b)).clone();
 
@@ -106,12 +108,58 @@ public class IntBinario {
 
         return result;
     }
+	
+	
+	public static int[] multiplicacao(int [] a, int [] b){
+		
+		int [][] conta = new int [3][a.length + b.length + 1];
+		
+		int [] complementoA = (complemento(a)).clone();
+		
+		for(int i = 0; i < conta.length; i++){
+			for(int j = 0; j< a.length; j++){
+				if(i == 0){
+					conta[i][j] = a[j];
+				}
+				else if(i == 1){
+					conta[i][j] = complementoA[j];
+				}
+				else if(i == 2){
+					conta[i][j] = 0;
+				}
+			}
+		}
+		
+		for(int i = 0; i < conta.length; i++){
+			for(int j = a.length; j < conta[0].length - 1; j++){
+				if(i == 0){
+					conta[i][j] = 0;
+					conta[i][conta.length-1] = 0;
+				}
+				else if(i == 1){
+					conta[i][j] = b[j];
+					conta[i][conta.length-1] = 0;
+					
+				}
+				else if(i == 2){
+					conta[i][j] = 0;
+					conta[i][conta.length-1] = 0;
+				}
+			}
+		}	
+		
+		if(conta[3][conta.length-1]==0 && conta[3][conta.length-2] == 0 || conta[3][conta.length-1]==1 && conta[3][conta.length-2] == 1)
+		
+	}
+	
     public static int[] complemento(int [] b){
 
         int [] Um = new int [b.length];
+		
         int [] complementado = b.clone();
 
         Um [b.length-1] = 1;
+		
         System.out.println();
         ///*
         for(int i = 0 ; i < b.length ; i++){
@@ -142,7 +190,6 @@ public class IntBinario {
 
                 result = (soma(alingnedA, alingnedB)).clone();
 
-
             }else if(SignalA.equals("0") && SignalB.equals("1")) {
 
                 result = (subtracao(alingnedA, alingnedB)).clone();
@@ -156,7 +203,6 @@ public class IntBinario {
 
                 result = (soma(alingnedA, alingnedB)).clone();
 
-
             }else{
 
                 System.out.println("passe o bit de sinal valido");
@@ -166,26 +212,22 @@ public class IntBinario {
             if(SignalA.equals("0") && SignalB.equals("0")) {
 
                 result = (subtracao(alingnedA, alingnedB)).clone();
-
-
+			
             }else if(SignalA.equals("0") && SignalB.equals("1")) {
-
+                
                 result = (soma(alingnedA, alingnedB)).clone();
-
 
             }else if(SignalA.equals("1") && SignalB.equals("0")) {
 
                 result = (soma(alingnedA, alingnedB)).clone();
 
-
             }else if(SignalA.equals("1") && SignalB.equals("1")) {
 
-                result = (soma(alingnedA, alingnedB)).clone();
-
+                result = (subtracao(alingnedB, alingnedA)).clone();
 
             }else{
 
-                System.out.println("passe o bit de sinal valido");
+               System.out.println("passe o bit de sinal valido");
             }
         }
 
@@ -194,7 +236,7 @@ public class IntBinario {
 
         int strBitSize = Integer.parseInt(bitSize);
 
-        if(result.length!=strBitSize){
+        if(result.length > strBitSize){
             System.out.println("Overflow");
         }else{
             printVal();
