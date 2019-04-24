@@ -108,42 +108,51 @@ public static int[] multiplicacao(int [] a, int [] b){
 		for(int r = 0; r < b.length; r++){
 			if(P[P.length-2] == 0 && P[P.length-1] == 1){
 				
-				Temp = (soma(P,A)).clone();
+				Temp = ((soma(P,A))).clone();
 				
-				if(Temp.length > A.length){
+				 if(Temp.length > A.length){
+					 
 					for(int i = 0; i < P.length; i++){
 						P[i] = Temp[l];
+						l++;
 					}
 					for(int j = P.length-1; j > 0; j--){
 						P[j] = P[j-1];
 					}
-				}else{
+					 
+				 }else{
+		
 				   P = (soma(P,A)).clone();
 				   
 					for(int j = P.length-1; j > 0; j--){
 						P[j] = P[j-1];
 					}
-				}
+				 }
 				
 				
 			}else if(P[P.length-2] == 1 && P[P.length-1] == 0){
 				
-				Temp = (soma(P,S)).clone();
+				  Temp = ((soma(P,S))).clone();
 				
-				if(Temp.length > A.length){
+				 if(Temp.length > A.length){
+					 
 					for(int i = 0; i < P.length; i++){
 						P[i] = Temp[l];
+						l++;
 					}
 					for(int j = P.length-1; j > 0; j--){
 						P[j] = P[j-1];
 					}
-				}else{
+					 
+				 }else{
+		
 				   P = (soma(P,S)).clone();
 				   
 					for(int j = P.length-1; j > 0; j--){
 						P[j] = P[j-1];
 					}
-				}
+				 }
+				
 				
 			}else if(P[P.length-1]== 0 && P[P.length-2] == 0 || P[P.length-1]==1 && P[P.length-2] == 1){
 				for(int j = P.length-1; j > 0; j--){
@@ -187,8 +196,8 @@ public static int[] multiplicacao(int [] a, int [] b){
 	
 public static void main(String[] args){
 	
-	int [] a = {0,1,1,0};
-	int [] b = {0,1,1,0};
+	int [] a = {0,0,1,0};
+	int [] b = {0,1,0,0};
 	
 	multiplicacao(a,b);
 }
