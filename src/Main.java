@@ -7,27 +7,31 @@ public class Main {
         //User imput
         Scanner sc1 = new Scanner(System.in);
 
-
+		System.out.println("<---------------------------------------------------------------MENU----------------------------------------------------------------------->");
+		
+		System.out.println();
+		
+		
 
         System.out.println("Digite o numero correspondente (1)Int (2)Float ");
         String kindOfbin = sc1.next();
 
-        System.out.println("Digite a operacão '+','-','x','/'");
+        System.out.println("Digite a operacao '+', '-', 'x' ou '/'");
         String operation = sc1.next();
 
-        System.out.println("Digite o tamanho bits");
+        System.out.println("Digite o tamanho bits (Sem contar o bit de sinal)");
         String bitSize = sc1.next();
 
-        System.out.println("Digite o bit de sinal do 1º numero");
+        System.out.println("Digite o bit de sinal do 1 numero");
         String signalA = sc1.next();
 
-        System.out.println("Digite o valor em binario do 1º numero");
+        System.out.println("Digite o valor em binario do 1 numero");
         String valueA = sc1.next();
 
-        System.out.println("Digite o bit de sinal do 2º numero");
+        System.out.println("Digite o bit de sinal do 2 numero");
         String signalB = sc1.next();
 
-        System.out.println("Digite valor em binario do 2º numero");
+        System.out.println("Digite valor em binario do 2 numero");
         String valueB = sc1.next();
 
         if(kindOfbin.equals("1")) {
@@ -42,7 +46,9 @@ public class Main {
             System.out.print("Passe uma operação valida");
         }
 
-        System.out.println();
+        System.out.println("\n");
+		
+		System.out.println("<------------------------------------------------------------------------------------------------------------------------------------------>");
 
     }
 }

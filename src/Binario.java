@@ -13,8 +13,7 @@ public class Binario {
     public static int[] resto;
     public static int[] not = {0};
 
-    public Binario() {
-    };
+    public Binario(){};
     public static void alingPackABC(int[] valueA, int[] valueB) {
 
         int bigest = Math.max(valueA.length, valueB.length);
@@ -73,11 +72,9 @@ public class Binario {
                 }
             }
         }
-
-
+		
         alingnedA = packA.clone();
         alingnedB = packB.clone();
-
     }
 
 
@@ -139,15 +136,7 @@ public class Binario {
                 }
             }
         }
-        /*
-        for(int k = 0; k<bigest ; k++){
-            System.out.print(packA[k]);
-        }
-        System.out.println();
-        for(int k = 0; k<bigest ; k++){
-            System.out.print(packB[k]);
-        }
-        */
+      
         alingnedA = packA.clone();
         alingnedB = packB.clone();
 
@@ -159,12 +148,10 @@ public class Binario {
 
         for (int i = 0; i < packA.length; i++) {
             packA[i] = Character.getNumericValue(a.charAt(i));
-            //System.out.print(packA[i]);
         }
-        System.out.println();
+       
         for (int i = 0; i < packB.length; i++) {
             packB[i] = Character.getNumericValue(b.charAt(i));
-            //System.out.print(packB[i]);
         }
 
 
@@ -204,7 +191,7 @@ public class Binario {
 
     public static int[] subtracao(int[] a, int[] b) {
 
-        int bitSinal= 0;
+        int bitSinal = 0;
 
 
         if(verifyZero(a)){
@@ -434,7 +421,7 @@ public class Binario {
 
             int j = P.length - 2 ;
 
-            for (int i = resultI.length-1; i > 0; i--) {
+            for (int i = resultI.length-1; i >= 0; i--) {
                 resultI[i] = P[j];
                 j--;
             }
@@ -583,7 +570,9 @@ public class Binario {
             if(SignalA.equals("0") && SignalB.equals("0")){
 
                 alingnedA = (groupSS(0,alingnedA)).clone();
+				
                 alingnedB = (groupSS(0,alingnedB)).clone();
+				
                 result = (multiplicacao(alingnedA,alingnedB)).clone();
 
                 signalResult = 0;
@@ -595,11 +584,11 @@ public class Binario {
                alingnedA = (groupSS(0,alingnedA)).clone();
                alingnedA = (complemento(alingnedA)).clone();
 
-                alingPackABC(alingnedB,alingnedA);
+               alingPackABC(alingnedB,alingnedA);
 
                result = (multiplicacao(alingnedA,alingnedB)).clone();
 
-                signalResult = 1;
+               signalResult = 1;
 
             }else if(SignalA.equals("0") && SignalB.equals("1")){
 
@@ -610,16 +599,16 @@ public class Binario {
 
                 result = (multiplicacao(alingnedA,alingnedB)).clone();
 
-
-
                 signalResult = 1;
 
             }else if(SignalA.equals("1") && SignalB.equals("1")){
 
                 alingnedA = (groupSS(0,alingnedA)).clone();
                 alingnedA = (complemento(alingnedA)).clone();
+				
                 alingnedB = (groupSS(0,alingnedB)).clone();
                 alingnedB = (complemento(alingnedB)).clone();
+				
                 result = (multiplicacao(alingnedA,alingnedB)).clone();
 
                 signalResult = 0;
@@ -645,25 +634,7 @@ public class Binario {
                 printDiv(a,b);
         }
 
-
-        //printDiv(a,b);
-        /*
-        System.out.println();
-        System.out.print("quocient = ");
-        for(int i = 0;i<result.length;i++)
-            System.out.print(result[i]);
-
-        System.out.println();
-        System.out.print("resto = ");
-        for(int i = 0 ;i<resto.length;i++){
-            System.out.print(resto[i]);
-        }
-        System.out.println();
-
-        */
-
         return result;
-
     }
 
 
@@ -674,17 +645,26 @@ public class Binario {
         System.out.print(" ");
         for (int i = 0 ; i < a.length() ; i++)
             System.out.print(a.charAt(i));
+		
         System.out.print(" "+OperationI);
+		
         System.out.print(" ");
+		
         for (int i = 0 ; i < b.length() ; i++)
             System.out.print(b.charAt(i));
+		
         System.out.println();
+		
         for (int i = 0 ; i < 8*alingnedA.length ; i++)
             System.out.print(equality);
-        System.out.println();
-        System.out.print("bit de sinal : "+signalResult);
-        System.out.print(" resultado :  ");
-        for (int i = 1 ; i < result.length ; i++)
+		
+        System.out.println("\n");
+		
+        System.out.print("Bit de sinal: "+signalResult + " ");
+		
+        System.out.print("Resultado: ");
+		
+        for (int i = 0 ; i < result.length; i++)
             System.out.print(result[i]);
 
 
@@ -697,20 +677,27 @@ public class Binario {
         System.out.print(" ");
         for (int i = 0 ; i < a.length() ; i++)
             System.out.print(a.charAt(i));
+		
         System.out.print(" "+OperationI);
+		
         System.out.print(" ");
         for (int i = 0 ; i < b.length() ; i++)
             System.out.print(b.charAt(i));
+		
         System.out.println();
         for (int i = 0 ; i < 8*alingnedA.length ; i++)
             System.out.print(equality);
-        System.out.println();
-        System.out.print("quocient = ");
+		
+        System.out.println("\n");
+		
+        System.out.print("Quociente: ");
+		
         for(int i = 0;i<result.length;i++)
             System.out.print(result[i]);
 
         System.out.println();
-        System.out.print("resto = ");
+		
+        System.out.print("Resto: ");
         for(int i = 0 ;i<resto.length;i++){
             System.out.print(resto[i]);
         }
@@ -718,7 +705,5 @@ public class Binario {
 
 
     }
-
-    //*/
 }
 
