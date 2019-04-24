@@ -1,7 +1,7 @@
 import java.util.*;
 
 
-public class IntBinario {
+public class Binario {
 
     public static int[] alingnedA;
     public static int[] alingnedB;
@@ -13,10 +13,73 @@ public class IntBinario {
     public static int[] resto;
     public static int[] not = {0};
 
-    public IntBinario() {
+    public Binario() {
+    };
+    public static void alingPackABC(int[] valueA, int[] valueB) {
+
+        int bigest = Math.max(valueA.length, valueB.length);
+
+        int[] packA = new int[bigest];
+
+        int[] packB = new int[bigest];
+
+        for(int i= 0 ; i<packB.length; i++){
+            packB[i] = 1;
+        }
+
+
+        int j = 0;
+        if (valueA.length == valueB.length) {
+            for (int i = 0; i <= packA.length - 1; i++) {
+
+                packA[i] = valueA[i];
+
+            }
+            for (int i = 0; i <= valueA.length - 1; i++) {
+
+                packB[i] = valueB[i];
+
+            }
+
+        } else if (valueA.length > valueB.length) {
+            for (int i = 0; i < bigest; i++) {
+                try {
+                    packA[i] = valueA[i];
+                } catch (Exception e) {
+                }
+            }
+            for (int i = valueA.length - valueB.length; i < bigest; i++) {
+
+                try {
+                    packB[i] = valueB[j];
+                    j++;
+                } catch (Exception e) {
+                }
+
+            }
+        } else {
+            for (int i = valueB.length - valueA.length; i < bigest; i++) {
+                try {
+                    packA[i] = valueA[j];
+                    j++;
+                } catch (Exception e) {
+                }
+            }
+            for (int i = 0; i < bigest; i++) {
+
+                try {
+                    packB[i] = valueB[i];
+                } catch (Exception e) {
+                }
+            }
+        }
+
+
+        alingnedA = packA.clone();
+        alingnedB = packB.clone();
+
     }
 
-    ;
 
     public static void alingPackAB(int[] valueA, int[] valueB) {
 
@@ -139,39 +202,59 @@ public class IntBinario {
 
     }
 
-    public static int[] subtracao(int[] a, int[] b, int bitSignalBI) {
+    public static int[] subtracao(int[] a, int[] b) {
 
-        b = (groupSS(bitSignalBI, b)).clone();
+        int bitSinal= 0;
 
-        alingPackAB(a, b);
 
-        int[] finalResult = new int[a.length];
+        if(verifyZero(a)){
+            return complemento(b);
+        }else if(verifyZero(b)){
+            return a;
+        }else{
 
-        int[] complement = (complemento(b)).clone();
 
-        int[] result = soma(a, complement);
 
-        int j = 0;
+            b = (groupSS(bitSinal ,b)).clone();
 
-        if (result.length > a.length) {
-            signalResult = result[1];
-            for (int i = 1; i < result.length; i++) {
-                finalResult[j] = result[i];
-                j++;
+            System.out.println();
+
+            int[] complement = (complemento(b)).clone();
+
+
+
+            alingPackABC(a,complement);
+
+            int [] finalResult = new int[alingnedA.length];
+
+            int[] result = soma(alingnedA, complement);
+
+            int j = 1;
+
+
+
+            if (result.length > alingnedA.length) {
+                for (int i = 0; i < finalResult.length; i++) {
+                    finalResult[i] = result[j];
+                    j++;
+                }
+
+                return finalResult;
+            } else {
+                for (int i = 0; i < finalResult.length; i++) {
+                    finalResult[i] = result[i];
+                    j++;
+                }
             }
-            ;
-        } else {
-            signalResult = result[0];
-            for (int i = 2; i < result.length; i++) {
-                finalResult[j] = result[i];
-                j++;
-            }
+
+            return result;
+
+
         }
-
-        return finalResult;
     }
 
     public static int[] divisao(int[] a, int[] b, int tamBits) {
+
 
         LinkedList<Integer> aTemp = new LinkedList<Integer>();
         LinkedList<Integer> restoI = new LinkedList<Integer>();
@@ -224,6 +307,8 @@ public class IntBinario {
 
             int[] restoT = new int[restoI.size()];
 
+            System.out.println(restoI);
+
             for (int i = 0; i < restoI.size(); i++) {
                 restoT[i] = restoI.get(i);
 
@@ -236,9 +321,126 @@ public class IntBinario {
             quocient = (soma(quocient, um)).clone();
 
         }
-        ;
+
 
         return quocient;
+    }
+
+    public static int[] multiplicacao(int [] a, int [] b) {
+
+        int [] resultI;
+        if (verifyZero(a) || verifyZero(b)) {
+            return not;
+
+        }else {
+
+            int[] complementoA = (complemento(a)).clone();
+
+            int x = complementoA.length;
+            int y = b.length;
+
+            int[] A = new int[x + y + 1];
+            int[] S = new int[x + y + 1];
+            int[] P = new int[x + y + 1];
+
+            int[] Temp = new int[P.length];
+
+            int k = 0;
+
+            //Preenchimento da matriz (0 -> valorA)
+            for (int i = 0; i < x; i++) {
+                A[i] = a[i];
+                S[i] = complementoA[i];
+                P[i] = 0;
+
+            }
+
+
+            //Preenchimento da matriz(valorA -> final da Matriz)
+            for (int i = x; i < P.length - 1; i++) {
+                A[i] = 0;
+                S[i] = 0;
+                if (k < b.length) P[i] = b[k];
+
+                k++;
+            }
+
+            A[A.length - 1] = 0;
+            S[S.length - 1] = 0;
+            P[P.length - 1] = 0;
+
+
+            int l = 1;
+
+            for (int conta = 0; conta < b.length; conta++) {
+                if (P[P.length - 2] == 0 && P[P.length - 1] == 1) {
+
+                    Temp = ((soma(P, A))).clone();
+
+                    if (Temp.length > A.length) {
+
+                        for (int i = 0; i < P.length; i++) {
+                            P[i] = Temp[l];
+                            l++;
+                        }
+                        for (int j = P.length - 1; j > 0; j--) {
+                            P[j] = P[j - 1];
+                        }
+
+                    } else {
+
+                        P = (soma(P, A)).clone();
+
+                        for (int j = P.length - 1; j > 0; j--) {
+                            P[j] = P[j - 1];
+                        }
+                    }
+
+
+                } else if (P[P.length - 2] == 1 && P[P.length - 1] == 0) {
+
+                    Temp = ((soma(P, S))).clone();
+
+                    if (Temp.length > A.length) {
+
+                        for (int i = 0; i < P.length; i++) {
+                            P[i] = Temp[l];
+                            l++;
+                        }
+                        for (int j = P.length - 1; j > 0; j--) {
+                            P[j] = P[j - 1];
+                        }
+
+                    } else {
+
+                        P = (soma(P, S)).clone();
+
+                        for (int j = P.length - 1; j > 0; j--) {
+                            P[j] = P[j - 1];
+                        }
+                    }
+
+
+                } else if (P[P.length - 1] == 0 && P[P.length - 2] == 0 || P[P.length - 1] == 1 && P[P.length - 2] == 1) {
+                    for (int j = P.length - 1; j > 0; j--) {
+                        P[j] = P[j - 1];
+                    }
+                }
+
+            }
+
+            resultI = new int[P.length - 1];
+
+
+            int j = P.length - 2 ;
+
+            for (int i = resultI.length-1; i > 0; i--) {
+                resultI[i] = P[j];
+                j--;
+            }
+        }
+
+        return resultI;
     }
 
     public static int[] complemento(int[] b) {
@@ -282,11 +484,11 @@ public class IntBinario {
 
     public static boolean verifyZero(int[] b) {
         int j = 0;
-        for (int i = 0; i < b.length - 1; i++) {
-            if (b[i] != 0)
+        for(int i=0;i<b.length;i++){
+            if(b[i] != 0 )
                 j++;
         }
-        if (j != 0)
+        if(j==0)
             return true;
         else
             return false;
@@ -301,12 +503,11 @@ public class IntBinario {
         bitSignalB = Character.getNumericValue(SignalB.charAt(0));
         signalResult = 1;
 
-        int strBitSize = Integer.parseInt(bitSize) + 1;
-        double newBitSize = Math.pow(2, strBitSize);
-
-
+        int strBitSize = Integer.parseInt(bitSize);
         convertToArrayInt(a, b);
         alingPackAB(alingnedA, alingnedB);
+
+        int [] not = {0,0,0};
 
 
         if (Operation.equals("+")) {
@@ -318,12 +519,12 @@ public class IntBinario {
 
             } else if (SignalA.equals("0") && SignalB.equals("1")) {
 
-                result = (subtracao(alingnedA, alingnedB, bitSignalB)).clone();
+                result = (subtracao(alingnedA, alingnedB)).clone();
 
 
             } else if (SignalA.equals("1") && SignalB.equals("0")) {
 
-                result = (subtracao(alingnedB, alingnedA, bitSignalA)).clone();
+                result = (subtracao(alingnedB, alingnedA)).clone();
 
 
             } else if (SignalA.equals("1") && SignalB.equals("1")) {
@@ -341,7 +542,8 @@ public class IntBinario {
 
             if (SignalA.equals("0") && SignalB.equals("0")) {
 
-                result = (subtracao(alingnedA, alingnedB, bitSignalB)).clone();
+                result = (subtracao(alingnedA, alingnedB)).clone();
+                signalResult = result [0];
 
 
             } else if (SignalA.equals("0") && SignalB.equals("1")) {
@@ -353,11 +555,14 @@ public class IntBinario {
 
                 result = (soma(alingnedA, alingnedB)).clone();
 
-
-            } else if (SignalA.equals("1") && SignalB.equals("1")) {
-
-                result = (subtracao(alingnedB, alingnedA, bitSignalB)).clone();
+                complemento(result);
                 signalResult = 1;
+
+
+
+            } else if (SignalA.equals("1") && SignalB.equals("1")){
+
+                result = (subtracao(alingnedB, alingnedA)).clone();
 
 
             } else {
@@ -365,33 +570,97 @@ public class IntBinario {
                 System.out.println("passe o bit de sinal valido");
             }
         } else if (Operation.equals("/")) {
-            if (!verifyZero(alingnedB)) {
+            if (verifyZero(alingnedB)) {
 
                 result = not.clone();
 
             } else {
+                System.out.println("fdojhfdoishofidshno");
                 result = (divisao(alingnedA, alingnedB, strBitSize)).clone();
+            }
+        }else if(Operation.equals("x")){
+            OperationI = Operation;
+            if(SignalA.equals("0") && SignalB.equals("0")){
+
+                alingnedA = (groupSS(0,alingnedA)).clone();
+                alingnedB = (groupSS(0,alingnedB)).clone();
+                result = (multiplicacao(alingnedA,alingnedB)).clone();
+
+                signalResult = 0;
+
+            }else if(SignalA.equals("1") && SignalB.equals("0")){
+
+
+
+               alingnedA = (groupSS(0,alingnedA)).clone();
+               alingnedA = (complemento(alingnedA)).clone();
+
+                alingPackABC(alingnedB,alingnedA);
+
+               result = (multiplicacao(alingnedA,alingnedB)).clone();
+
+                signalResult = 1;
+
+            }else if(SignalA.equals("0") && SignalB.equals("1")){
+
+                alingnedB = (groupSS(0,alingnedB)).clone();
+                alingnedB = (complemento(alingnedB)).clone();
+
+                alingPackABC(alingnedA,alingnedB);
+
+                result = (multiplicacao(alingnedA,alingnedB)).clone();
+
+
+
+                signalResult = 1;
+
+            }else if(SignalA.equals("1") && SignalB.equals("1")){
+
+                alingnedA = (groupSS(0,alingnedA)).clone();
+                alingnedA = (complemento(alingnedA)).clone();
+                alingnedB = (groupSS(0,alingnedB)).clone();
+                alingnedB = (complemento(alingnedB)).clone();
+                result = (multiplicacao(alingnedA,alingnedB)).clone();
+
+                signalResult = 0;
             }
         }
 
 
-        //result = (subtracao(alingnedA,alingnedB)).clone();
+        if(Operation.equals("x") && result.length > strBitSize*2 ){
+                System.out.println("Overflow");
 
+        }else if(result.length > strBitSize){
 
+            System.out.println("Overflow");
 
-        if(result.length >newBitSize){
-
-        System.out.println("Overflow");
-
-        }else if(!verifyZero(alingnedB)){
+        }else if(verifyZero(alingnedB) && Operation.equals("/")){
             System.out.println("Divisao por zero");
+            return not;
         }else{
-            if(Operation.equals("+")||Operation.equals("-"))
+            if(Operation.equals("+")||Operation.equals("-") || Operation.equals("x") )
                 printVal(a,b);
+
             if(Operation.equals("/"))
                 printDiv(a,b);
         }
 
+
+        //printDiv(a,b);
+        /*
+        System.out.println();
+        System.out.print("quocient = ");
+        for(int i = 0;i<result.length;i++)
+            System.out.print(result[i]);
+
+        System.out.println();
+        System.out.print("resto = ");
+        for(int i = 0 ;i<resto.length;i++){
+            System.out.print(resto[i]);
+        }
+        System.out.println();
+
+        */
 
         return result;
 
@@ -408,14 +677,14 @@ public class IntBinario {
         System.out.print(" "+OperationI);
         System.out.print(" ");
         for (int i = 0 ; i < b.length() ; i++)
-           System.out.print(b.charAt(i));
+            System.out.print(b.charAt(i));
         System.out.println();
         for (int i = 0 ; i < 8*alingnedA.length ; i++)
             System.out.print(equality);
         System.out.println();
         System.out.print("bit de sinal : "+signalResult);
         System.out.print(" resultado :  ");
-        for (int i = 0 ; i < result.length ; i++)
+        for (int i = 1 ; i < result.length ; i++)
             System.out.print(result[i]);
 
 
@@ -436,7 +705,6 @@ public class IntBinario {
         for (int i = 0 ; i < 8*alingnedA.length ; i++)
             System.out.print(equality);
         System.out.println();
-        System.out.println();
         System.out.print("quocient = ");
         for(int i = 0;i<result.length;i++)
             System.out.print(result[i]);
@@ -446,10 +714,11 @@ public class IntBinario {
         for(int i = 0 ;i<resto.length;i++){
             System.out.print(resto[i]);
         }
+        System.out.println();
 
 
     }
 
-     //*/
+    //*/
 }
 

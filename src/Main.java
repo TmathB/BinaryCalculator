@@ -12,7 +12,7 @@ public class Main {
         System.out.println("Digite o numero correspondente (1)Int (2)Float ");
         String kindOfbin = sc1.next();
 
-        System.out.println("Digite a operacão '+' ,'-','x','/'");
+        System.out.println("Digite a operacão '+','-','x','/'");
         String operation = sc1.next();
 
         System.out.println("Digite o tamanho bits");
@@ -32,10 +32,11 @@ public class Main {
 
         if(kindOfbin.equals("1")) {
             //System.out.println("Fazendo conta int");
-            IntBinario bin = new IntBinario();
-            IntBinario.select(valueA, valueB,  signalA, signalB,operation, bitSize);
-        }else
-        if(kindOfbin.equals("2")){
+           Binario bin = new Binario();
+           Binario.select(valueA,valueB,signalA,signalB,operation,bitSize);
+
+
+        }else if(kindOfbin.equals("2")){
             System.out.println("Fazendo conta float");
         }else{
             System.out.print("Passe uma operação valida");
