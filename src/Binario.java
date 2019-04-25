@@ -14,6 +14,8 @@ public class Binario {
     public static int[] not = {0};
 
     public Binario(){};
+	
+	
     public static void alingPackABC(int[] valueA, int[] valueB) {
 
         int bigest = Math.max(valueA.length, valueB.length);
@@ -27,7 +29,7 @@ public class Binario {
         }
 
 
-        int j = 0;
+        int j = 0; 
         if (valueA.length == valueB.length) {
             for (int i = 0; i <= packA.length - 1; i++) {
 
@@ -159,6 +161,7 @@ public class Binario {
         alingnedB = packB.clone();
     }
 
+
     public static int[] soma(int[] a, int[] b) {
 
         LinkedList<Integer> resultado = new LinkedList<Integer>();
@@ -188,6 +191,7 @@ public class Binario {
         return result;
 
     }
+
 
     public static int[] subtracao(int[] a, int[] b) {
 
@@ -240,6 +244,7 @@ public class Binario {
         }
     }
 
+
     public static int[] divisao(int[] a, int[] b, int tamBits) {
 
 
@@ -280,8 +285,6 @@ public class Binario {
             }
 
 
-            //resto = resultado[0];
-
             if (aTemp.size() == a.length - 1) {
 
                 break;
@@ -294,7 +297,6 @@ public class Binario {
 
             int[] restoT = new int[restoI.size()];
 
-            System.out.println(restoI);
 
             for (int i = 0; i < restoI.size(); i++) {
                 restoT[i] = restoI.get(i);
@@ -312,6 +314,7 @@ public class Binario {
 
         return quocient;
     }
+
 
     public static int[] multiplicacao(int [] a, int [] b) {
 
@@ -428,7 +431,9 @@ public class Binario {
         }
 
         return resultI;
+		
     }
+
 
     public static int[] complemento(int[] b) {
 
@@ -438,7 +443,7 @@ public class Binario {
         Um[b.length - 1] = 1;
 
 
-        ///*
+        
         for (int i = 0; i < b.length; i++) {
 
             if (b[i] == 0) {
@@ -447,7 +452,7 @@ public class Binario {
                 complementado[i] = 0;
             }
         }
-        //
+        
         int complemented[] = (soma(complementado, Um)).clone();
 
         return complemented;
@@ -488,7 +493,7 @@ public class Binario {
 
         bitSignalA = Character.getNumericValue(SignalA.charAt(0));
         bitSignalB = Character.getNumericValue(SignalB.charAt(0));
-        signalResult = 1;
+       
 
         int strBitSize = Integer.parseInt(bitSize);
         convertToArrayInt(a, b);
@@ -498,51 +503,65 @@ public class Binario {
 
 
         if (Operation.equals("+")) {
+			
             OperationI = Operation;
+			
             if (SignalA.equals("0") && SignalB.equals("0")) {
 
                 result = (soma(alingnedA, alingnedB)).clone();
+				
                 signalResult = 0;
 
             } else if (SignalA.equals("0") && SignalB.equals("1")) {
 
                 result = (subtracao(alingnedA, alingnedB)).clone();
+				
+				signalResult = result[0];
+
 
 
             } else if (SignalA.equals("1") && SignalB.equals("0")) {
 
                 result = (subtracao(alingnedB, alingnedA)).clone();
+				
+				signalResult = result[0];
+
 
 
             } else if (SignalA.equals("1") && SignalB.equals("1")) {
 
                 result = (soma(alingnedA, alingnedB)).clone();
+				
+				result  = (complemento(result)).clone();
+				
                 signalResult = 1;
 
-            } else {
-
-                System.out.println("passe o bit de sinal valido");
-            }
-
+            } 
+			
         } else if (Operation.equals("-")) {
+			
             OperationI = Operation;
 
             if (SignalA.equals("0") && SignalB.equals("0")) {
 
                 result = (subtracao(alingnedA, alingnedB)).clone();
-                signalResult = result [0];
+				
+                signalResult = result[0];
 
 
             } else if (SignalA.equals("0") && SignalB.equals("1")) {
 
                 result = (soma(alingnedA, alingnedB)).clone();
+				
+				 signalResult = 0;
 
 
             } else if (SignalA.equals("1") && SignalB.equals("0")) {
 
                 result = (soma(alingnedA, alingnedB)).clone();
 
-                complemento(result);
+                result  = (complemento(result)).clone();
+				
                 signalResult = 1;
 
 
@@ -550,23 +569,53 @@ public class Binario {
             } else if (SignalA.equals("1") && SignalB.equals("1")){
 
                 result = (subtracao(alingnedB, alingnedA)).clone();
+				
+				signalResult = result[0];
 
 
-            } else {
-
-                System.out.println("passe o bit de sinal valido");
             }
+			
         } else if (Operation.equals("/")) {
-            if (verifyZero(alingnedB)) {
+			
+              if (verifyZero(alingnedB)) {
 
                 result = not.clone();
 
-            } else {
-                System.out.println("fdojhfdoishofidshno");
+            } else if(SignalA.equals("0") && SignalB.equals("0")) {
+				
                 result = (divisao(alingnedA, alingnedB, strBitSize)).clone();
-            }
-        }else if(Operation.equals("x")){
+				
+				signalResult = 0;
+				
+            } else if(SignalA.equals("1") && SignalB.equals("0")){
+				
+				result = (divisao(alingnedA, alingnedB, strBitSize)).clone();
+				
+				result  = (complemento(result)).clone();
+				
+			    signalResult = 1;
+				
+			} else if(SignalA.equals("0") && SignalB.equals("1")){
+				
+				result = (divisao(alingnedA, alingnedB, strBitSize)).clone();
+				
+				result = (complemento(result)).clone();
+				
+				signalResult = 1;
+				
+			} else if(SignalA.equals("1") && SignalB.equals("1")){
+				
+				result = (divisao(alingnedA, alingnedB, strBitSize)).clone();
+				
+				signalResult = 0;
+				
+				
+			}
+				
+            } else if(Operation.equals("x")){
+			
             OperationI = Operation;
+			
             if(SignalA.equals("0") && SignalB.equals("0")){
 
                 alingnedA = (groupSS(0,alingnedA)).clone();
@@ -578,8 +627,6 @@ public class Binario {
                 signalResult = 0;
 
             }else if(SignalA.equals("1") && SignalB.equals("0")){
-
-
 
                alingnedA = (groupSS(0,alingnedA)).clone();
                alingnedA = (complemento(alingnedA)).clone();
@@ -619,14 +666,18 @@ public class Binario {
         if(Operation.equals("x") && result.length > strBitSize*2 ){
                 System.out.println("Overflow");
 
-        }else if(result.length > strBitSize){
+        } else if(!Operation.equals("x") && result.length > strBitSize){
 
             System.out.println("Overflow");
 
-        }else if(verifyZero(alingnedB) && Operation.equals("/")){
+        } else if(verifyZero(alingnedB) && Operation.equals("/")){
+			
             System.out.println("Divisao por zero");
+			
             return not;
-        }else{
+			
+        } else{
+			
             if(Operation.equals("+")||Operation.equals("-") || Operation.equals("x") )
                 printVal(a,b);
 
@@ -646,7 +697,7 @@ public class Binario {
         for (int i = 0 ; i < a.length() ; i++)
             System.out.print(a.charAt(i));
 		
-        System.out.print(" "+OperationI);
+        System.out.print(" " + OperationI);
 		
         System.out.print(" ");
 		
@@ -675,6 +726,7 @@ public class Binario {
         char equality = '_';
 
         System.out.print(" ");
+		
         for (int i = 0 ; i < a.length() ; i++)
             System.out.print(a.charAt(i));
 		
@@ -689,6 +741,8 @@ public class Binario {
             System.out.print(equality);
 		
         System.out.println("\n");
+		
+		System.out.print("Bit de sinal: "+signalResult + " ");
 		
         System.out.print("Quociente: ");
 		
