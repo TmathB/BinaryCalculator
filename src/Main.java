@@ -36,8 +36,8 @@ public class Main {
 
         if(kindOfbin.equals("1")) {
             //System.out.println("Fazendo conta int");
-           Binario bin = new Binario();
-           Binario.select(valueA,valueB,signalA,signalB,operation,bitSize);
+           SelectPrint selP = new SelectPrint();
+           SelectPrint.select(valueA,valueB,signalA,signalB,operation,bitSize);
 
 
         }else if(kindOfbin.equals("2")){
