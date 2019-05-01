@@ -1,7 +1,6 @@
+import java.util.*;
 	
-	import java.util.*;
-	
-	public class Functions{
+public class Functions{
 	
 	public Functions(){}
 	
@@ -9,8 +8,71 @@
 	public static int[] alingnedA;
     public static int[] alingnedB;
 	
-	public static void alingPackAB(int[] valueA, int[] valueB) {
+	public static void alingPackABC(int[] valueA, int[] valueB) {
+
+        int bigest = Math.max(valueA.length, valueB.length);
+
+        int[] packA = new int[bigest];
+
+        int[] packB = new int[bigest];
+
+        for(int i= 0 ; i<packB.length; i++){
+            packB[i] = 1;
+        }
+
+
+        int j = 0; 
+        if (valueA.length == valueB.length) {
+            for (int i = 0; i <= packA.length - 1; i++) {
+
+                packA[i] = valueA[i];
+
+            }
+            for (int i = 0; i <= valueA.length - 1; i++) {
+
+                packB[i] = valueB[i];
+
+            }
+
+        } else if (valueA.length > valueB.length) {
+            for (int i = 0; i < bigest; i++) {
+                try {
+                    packA[i] = valueA[i];
+                } catch (Exception e) {
+                }
+            }
+            for (int i = valueA.length - valueB.length; i < bigest; i++) {
+
+                try {
+                    packB[i] = valueB[j];
+                    j++;
+                } catch (Exception e) {
+                }
+
+            }
+        } else {
+            for (int i = valueB.length - valueA.length; i < bigest; i++) {
+                try {
+                    packA[i] = valueA[j];
+                    j++;
+                } catch (Exception e) {
+                }
+            }
+            for (int i = 0; i < bigest; i++) {
+
+                try {
+                    packB[i] = valueB[i];
+                } catch (Exception e) {
+                }
+            }
+        }
 		
+        alingnedA = packA.clone();
+        alingnedB = packB.clone();
+    }
+
+
+    public static void alingPackAB(int[] valueA, int[] valueB) {
 
         int bigest = Math.max(valueA.length, valueB.length);
 
@@ -73,73 +135,8 @@
         alingnedB = packB.clone();
 
     }
-	
-	
-	public static void alingPackABC(int[] valueA, int[] valueB) {
 
-        int bigest = Math.max(valueA.length, valueB.length);
-
-        int[] packA = new int[bigest];
-
-        int[] packB = new int[bigest];
-
-        for(int i= 0 ; i<packB.length; i++){
-            packB[i] = 1;
-        }
-
-
-        int j = 0;
-        if (valueA.length == valueB.length) {
-            for (int i = 0; i <= packA.length - 1; i++) {
-
-                packA[i] = valueA[i];
-
-            }
-            for (int i = 0; i <= valueA.length - 1; i++) {
-
-                packB[i] = valueB[i];
-
-            }
-
-        } else if (valueA.length > valueB.length) {
-            for (int i = 0; i < bigest; i++) {
-                try {
-                    packA[i] = valueA[i];
-                } catch (Exception e) {
-                }
-            }
-            for (int i = valueA.length - valueB.length; i < bigest; i++) {
-
-                try {
-                    packB[i] = valueB[j];
-                    j++;
-                } catch (Exception e) {
-                }
-
-            }
-        } else {
-            for (int i = valueB.length - valueA.length; i < bigest; i++) {
-                try {
-                    packA[i] = valueA[j];
-                    j++;
-                } catch (Exception e) {
-                }
-            }
-            for (int i = 0; i < bigest; i++) {
-
-                try {
-                    packB[i] = valueB[i];
-                } catch (Exception e) {
-                }
-            }
-        }
-		
-        alingnedA = packA.clone();
-        alingnedB = packB.clone();
-    }
-	
-	
-	public static void convertToArrayInt(String a, String b) {
+    public static void convertToArrayInt(String a, String b) {
         int[] packA = new int[a.length()];
         int[] packB = new int[b.length()];
 
@@ -171,16 +168,20 @@
 
     }
 
-
     public static boolean verifyZero(int[] b) {
+		
         int j = 0;
-        for(int i=0;i<b.length;i++){
-            if(b[i] != 0 )
+		
+        for(int i = 0; i < b.length; i++){			
+            if(b[i] != 0 ){
                 j++;
+			}
         }
-        if(j==0)
+		
+        if(j==0){
             return true;
-        else
+		
+        }else
             return false;
 
     }

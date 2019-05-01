@@ -3,40 +3,41 @@ import java.util.*;
 
 public class Operations{
 	
-	public Operations(){}
+		public Operations(){}
 	
-	Functions functions = new Functions();
+		Functions functions = new Functions();
 	
-	public static int[] resto;
-	public static int[] not = {0};
+		public static int[] resto;
+		public static int[] not = {0};
 	
 	
-	public static int[] complemento(int[] b) {
+	 public static int[] complemento(int[] b) {
+	
+			
+			int[] Um = new int[b.length];
+			int[] complementado = b.clone();
 
-        int[] Um = new int[b.length];
-        int[] complementado = b.clone();
-
-        Um[b.length - 1] = 1;
+			Um[b.length - 1] = 1;
 
 
-        ///*
-        for (int i = 0; i < b.length; i++) {
+        
+			for(int i = 0; i < b.length; i++) {
 
-            if (b[i] == 0) {
-                complementado[i] = 1;
-            } else if (b[i] == 1) {
-                complementado[i] = 0;
-            }
-        }
-        //
-        int complemented[] = (soma(complementado, Um)).clone();
-
-        return complemented;
+				if (b[i] == 0) {
+					complementado[i] = 1;
+				} else if (b[i] == 1) {
+					complementado[i] = 0;
+				  }
+			}
+        
+			 int complemented[] = (soma(complementado, Um)).clone();
+		
+			return complemented;
 
 
     }
 	
-		
+	
 	public static int[] soma(int[] a, int[] b) {
 
         LinkedList<Integer> resultado = new LinkedList<Integer>();
@@ -67,22 +68,24 @@ public class Operations{
 
     }
 
+
     public static int[] subtracao(int[] a, int[] b) {
 
         int bitSinal = 0;
 
 
         if(Functions.verifyZero(a)){
+			
             return complemento(b);
+			
         }else if(Functions.verifyZero(b)){
             return a;
+			
         }else{
 
 
 
             b = (Functions.groupSS(bitSinal ,b)).clone();
-
-            System.out.println();
 
             int[] complement = (complemento(b)).clone();
 
@@ -117,6 +120,7 @@ public class Operations{
 
         }
     }
+
 
     public static int[] divisao(int[] a, int[] b, int tamBits) {
 
@@ -158,8 +162,6 @@ public class Operations{
             }
 
 
-            //resto = resultado[0];
-
             if (aTemp.size() == a.length - 1) {
 
                 break;
@@ -172,7 +174,6 @@ public class Operations{
 
             int[] restoT = new int[restoI.size()];
 
-            System.out.println(restoI);
 
             for (int i = 0; i < restoI.size(); i++) {
                 restoT[i] = restoI.get(i);
@@ -191,11 +192,10 @@ public class Operations{
         return quocient;
     }
 
+
     public static int[] multiplicacao(int [] a, int [] b) {
 
         int [] resultI;
-		int [] resultI2;
-		
         if (Functions.verifyZero(a) || Functions.verifyZero(b)) {
             return not;
 
@@ -246,7 +246,7 @@ public class Operations{
 
                     if (Temp.length > A.length) {
 
-                        for (int i = 0; i < P.length-1; i++) {
+                        for (int i = 0; i < P.length; i++) {
                             P[i] = Temp[l];
                             l++;
                         }
@@ -270,7 +270,7 @@ public class Operations{
 
                     if (Temp.length > A.length) {
 
-                        for (int i = 0; i < P.length-1; i++) {
+                        for (int i = 0; i < P.length; i++) {
                             P[i] = Temp[l];
                             l++;
                         }
@@ -282,7 +282,7 @@ public class Operations{
 
                         P = (soma(P, S)).clone();
 
-                        for (int j = P.length - 1; j >0; j--) {
+                        for (int j = P.length - 1; j > 0; j--) {
                             P[j] = P[j - 1];
                         }
                     }
@@ -295,9 +295,9 @@ public class Operations{
                 }
 
             }
-		    
+
             resultI = new int[P.length - 1];
-		    resultI2 = new int[resultI.length - 1];
+
 
             int j = P.length - 2 ;
 
@@ -305,15 +305,10 @@ public class Operations{
                 resultI[i] = P[j];
                 j--;
             }
-			
         }
-		
-		for(int i = 0; i < resultI.length; i++){
-			   System.out.print(resultI[i] + " ");
-		   }
-		   System.out.println();
-		
+
         return resultI;
+		
     }
-	
+
 }
