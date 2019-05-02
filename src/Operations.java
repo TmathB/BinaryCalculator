@@ -1,16 +1,21 @@
+import java.util.*; 
 
-import java.util.*;
+/**CLASSE PARA AS OPERACOES BASICAS**/
 
 public class Operations{
 	
-		public Operations(){}
+		public Operations(){} // Construtor para a classe
 	
-		Functions functions = new Functions();
+		Functions functions = new Functions(); // Cria um objeto da classe de funcoes auxiliares
 	
-		public static int[] resto;
-		public static int[] not = {0};
+		public static int[] resto; // Vetor auxiliar para divisao
+		public static int[] not = {0}; // Vetor auxiliar para retorno 0
 	
 	
+/**=====================================================================================================================================================**/	
+	
+	
+	//Metodo que faz o complemento de 2 de um binario
 	 public static int[] complemento(int[] b) {
 	
 			
@@ -38,6 +43,10 @@ public class Operations{
     }
 	
 	
+/**=====================================================================================================================================================**/	
+	
+	
+	//Metodo que faz a soma de 2 binarios
 	public static int[] soma(int[] a, int[] b) {
 
         LinkedList<Integer> resultado = new LinkedList<Integer>();
@@ -52,7 +61,6 @@ public class Operations{
             carryOut = sum / 2;
 
         }
-        //System.out.print(carryOut);
         if (carryOut == 1)
             resultado.add(1);
 
@@ -67,8 +75,12 @@ public class Operations{
         return result;
 
     }
+	
+	
+/**=====================================================================================================================================================**/	
 
-
+	
+	//Metodo que faz a subtracao de 2 binarios com complemento de 2
     public static int[] subtracao(int[] a, int[] b) {
 
         int bitSinal = 0;
@@ -120,9 +132,12 @@ public class Operations{
 
         }
     }
+	
+/**=====================================================================================================================================================**/	
 
 
-    public static int[] divisao(int[] a, int[] b, int tamBits) {
+	//Metodo que calcula a divisao de 2 binarios
+     public static int[] divisao(int[] a, int[] b, int tamBits) {
 
 
         LinkedList<Integer> aTemp = new LinkedList<Integer>();
@@ -162,6 +177,8 @@ public class Operations{
             }
 
 
+            //resto = resultado[0];
+
             if (aTemp.size() == a.length - 1) {
 
                 break;
@@ -174,6 +191,7 @@ public class Operations{
 
             int[] restoT = new int[restoI.size()];
 
+      
 
             for (int i = 0; i < restoI.size(); i++) {
                 restoT[i] = restoI.get(i);
@@ -192,114 +210,137 @@ public class Operations{
         return quocient;
     }
 
+/**=====================================================================================================================================================**/	
 
+
+	//Metodo que faz a multiplicacao de 2 binarios com Algoritimo de Booth
     public static int[] multiplicacao(int [] a, int [] b) {
-
+		
+		LinkedList<Integer> aTemp = new LinkedList<Integer>();
+		
         int [] resultI;
-        if (Functions.verifyZero(a) || Functions.verifyZero(b)) {
+		
+        if(Functions.verifyZero(a)){
+			
             return not;
+			
+		} else if(Functions.verifyZero(b)){
+			
+			return not;
 
-        }else {
+			} else {
 
-            int[] complementoA = (complemento(a)).clone();
+				int[] complementoA = (complemento(a)).clone();
 
-            int x = complementoA.length;
-            int y = b.length;
+				int x = complementoA.length;
+				int y = b.length;
 
-            int[] A = new int[x + y + 1];
-            int[] S = new int[x + y + 1];
-            int[] P = new int[x + y + 1];
+				int[] A = new int[x + y + 1];
+				int[] S = new int[x + y + 1];
+				int[] P = new int[x + y + 1];
 
-            int[] Temp = new int[P.length];
+				int[] Temp = new int[P.length + 1];
 
-            int k = 0;
+				int k = 0;
 
-            //Preenchimento da matriz (0 -> valorA)
-            for (int i = 0; i < x; i++) {
-                A[i] = a[i];
-                S[i] = complementoA[i];
-                P[i] = 0;
+				//Preenchimento da tabela (0 -> valorA)
+				for (int i = 0; i < x; i++) {
+					A[i] = a[i];
+					S[i] = complementoA[i];
+					P[i] = 0;
 
-            }
-
-
-            //Preenchimento da matriz(valorA -> final da Matriz)
-            for (int i = x; i < P.length - 1; i++) {
-                A[i] = 0;
-                S[i] = 0;
-                if (k < b.length) P[i] = b[k];
-
-                k++;
-            }
-
-            A[A.length - 1] = 0;
-            S[S.length - 1] = 0;
-            P[P.length - 1] = 0;
+				}
 
 
-            int l = 1;
+				//Preenchimento da tabela(valorA -> final da Matriz)
+				for (int i = x; i < P.length - 1; i++) {
+					A[i] = 0;
+					S[i] = 0;
+					if (k < b.length) P[i] = b[k];
 
-            for (int conta = 0; conta < b.length; conta++) {
-                if (P[P.length - 2] == 0 && P[P.length - 1] == 1) {
-
-                    Temp = ((soma(P, A))).clone();
-
-                    if (Temp.length > A.length) {
-
-                        for (int i = 0; i < P.length; i++) {
-                            P[i] = Temp[l];
-                            l++;
-                        }
-                        for (int j = P.length - 1; j > 0; j--) {
-                            P[j] = P[j - 1];
-                        }
-
-                    } else {
-
-                        P = (soma(P, A)).clone();
-
-                        for (int j = P.length - 1; j > 0; j--) {
-                            P[j] = P[j - 1];
-                        }
-                    }
+					k++;
+				}
+				
+				//Preenchimento do ultimo valor da tabela
+				A[A.length - 1] = 0;
+				S[S.length - 1] = 0;
+				P[P.length - 1] = 0;
 
 
-                } else if (P[P.length - 2] == 1 && P[P.length - 1] == 0) {
+				for (int conta = 0; conta < b.length; conta++) {
+					if (P[P.length - 2] == 0 && P[P.length - 1] == 1) {
 
-                    Temp = ((soma(P, S))).clone();
+						Temp = ((soma(P, A)));
+						
+						for (int i = 1; i < Temp.length; i++) {
+							aTemp.add(Temp[i]);
+						}
 
-                    if (Temp.length > A.length) {
+						if (Temp.length > P.length) {
 
-                        for (int i = 0; i < P.length; i++) {
-                            P[i] = Temp[l];
-                            l++;
-                        }
-                        for (int j = P.length - 1; j > 0; j--) {
-                            P[j] = P[j - 1];
-                        }
+							for (int i = 0; i < P.length; i++) {
+								P[i] = aTemp.get(i);
+						
+							}
+							
+							aTemp.clear();
+							
+							for (int j = P.length - 1; j > 0; j--) {
+								P[j] = P[j - 1];
+							}
 
-                    } else {
+						} else {
 
-                        P = (soma(P, S)).clone();
+							P = (soma(P, A)).clone();
 
-                        for (int j = P.length - 1; j > 0; j--) {
-                            P[j] = P[j - 1];
-                        }
-                    }
+							for (int j = P.length - 1; j > 0; j--) {
+								P[j] = P[j - 1];
+							}
+						}
 
 
-                } else if (P[P.length - 1] == 0 && P[P.length - 2] == 0 || P[P.length - 1] == 1 && P[P.length - 2] == 1) {
-                    for (int j = P.length - 1; j > 0; j--) {
-                        P[j] = P[j - 1];
-                    }
-                }
+					} else if (P[P.length - 2] == 1 && P[P.length - 1] == 0) {
 
-            }
+						Temp = ((soma(P, S))).clone();
+						
+						for (int i = 1; i < Temp.length; i++) {
+							aTemp.add(Temp[i]);
+						}
+
+						if (Temp.length > P.length) {
+
+							for (int i = 0; i < P.length; i++) {
+								P[i] = aTemp.get(i);
+							}
+							
+							aTemp.clear();
+							
+							for (int j = P.length - 1; j > 0; j--) {
+								P[j] = P[j - 1];
+							}
+
+						} 	else {
+
+								P = (soma(P, S)).clone();
+
+								for (int j = P.length - 1; j > 0; j--) {
+									P[j] = P[j - 1];
+								}
+							}
+
+
+					} else if (P[P.length - 1] == 0 && P[P.length - 2] == 0 || P[P.length - 1] == 1 && P[P.length - 2] == 1) {
+						for (int j = P.length - 1; j > 0; j--) {
+							P[j] = P[j - 1];
+						}
+					  }
+
+				}
 
             resultI = new int[P.length - 1];
 
 
-            int j = P.length - 2 ;
+            int j = P.length - 2;
 
             for (int i = resultI.length-1; i >= 0; i--) {
                 resultI[i] = P[j];

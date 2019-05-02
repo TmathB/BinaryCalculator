@@ -1,10 +1,25 @@
 import java.util.Scanner;
 
+/**CLASSE MAIN PARA COMPILACAO E EXECUCAO DO EXERCICIO PROGRAMA**/
 
+//************************************************************************//
+//	Exercício-Programa I - ACH2034 - Organização de Computadores Digitais //						 
+//																		  //						 
+//	Gustavo Jyun Hayashida n° USP 10816902								  //
+//	Matheus Barbosa n° USP 10687792										  //
+//																		  //
+//	Prof. João Luiz Bernardes Junior									  //
+//************************************************************************//	
+
+/**O usuario deve compilar essa classe para entrada e saida das operacoes**/
+
+
+/**=====================================================================================================================================================**/	
+																		  
 public class Main {
-
+    
     public static void main(String[] args) {
-        //User imput
+        
         Scanner sc1 = new Scanner(System.in);
 
 		System.out.println("<---------------------------------------------------------------MENU----------------------------------------------------------------------->");
